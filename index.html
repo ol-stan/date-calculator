@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk" class="notranslate" translate="no">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google" content="notranslate">
+    <meta name="description" content="Калькулятор дат і днів">
+    <title>Date Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <main>
+        <h1 class="title">Калькулятор днів</h1>
+
+        <div class="sections-wrapper">
+            <div class="calculator-sections">
+
+                <section class="section" id="addDaysSection">
+                    <h2 class="subtitle">Яка буде дата, якщо додати/відняти скількісь днів</h2>
+                    <div class="date-box">
+                        <input class="date" type="text" id="startDay" name="date" autocomplete="off">
+                        <input type="number" id="addDays" value="30" min="-9999999" max="9999999" size="5">
+                        <label class="checkbox">
+                            <input type="checkbox" id="startDayIn">
+                            <div class="slider round"></div>
+                            <span>Включно з днем вказаної дати</span>
+                        </label>
+                        <div class="result-block">
+                            <span class="result"></span>
+                            <span class="buttons">
+                                <button class="js-copy">Скопіювати</button>
+                                <button class="js-set-date">Встановити як дату для розрахунку</button>
+                            </span>
+                        </div>
+                    </div>
+                </section>
+                <section class="section" id="diffDatesSection">
+                    <h2 class="subtitle">Скільки днів між датами</h2>
+                    <div class="date-box">
+                        <input class="date" type="text" id="startDate" name="date" autocomplete="off">
+                        <input class="date" type="text" id="endDate" name="date" autocomplete="off">
+                        <label class="checkbox">
+                            <input type="checkbox" checked id="lastDateIn">
+                            <div class="slider round"></div>
+                            <span>Включно з останньою датою періода</span>
+                        </label>
+                        
+                        <div class="result-block">
+                            <span class="result"></span>
+                        </div>
+                    </div>
+                </section>
+                <section class="section" id="toDateSection">
+                    <h2 class="subtitle">Скільки днів до</h2>
+                    <ul class="significant-dates"></ul>
+                </section>
+    
+            </div>
+    
+            <div class="side-sections">
+    
+                <section class="section" id="todaySection">
+                    <h2 class="subtitle js-today">Сьогодні</h2>
+                    <div class="date-box"></div>
+                </section>
+
+                <div class="ads-block"></div>
+    
+            </div>
+        </div>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/locale/uk.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/plugin/customParseFormat.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
