@@ -1,12 +1,13 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     //Локалізація flatpickr
     (function (global, factory) {
         typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
-        typeof define === 'function' && define.amd ? define(['exports'], factory) :
-        (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ua = {}));
-    }(this, (function (exports) { 'use strict';
-    
+            typeof define === 'function' && define.amd ? define(['exports'], factory) :
+                (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ua = {}));
+    }(this, (function (exports) {
+        'use strict';
+
         var fp = typeof window !== "undefined" && window.flatpickr !== undefined
             ? window.flatpickr
             : {
@@ -19,8 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             months: {
                 shorthand: ["Січ", "Лют", "Бер", "Кві", "Тра", "Чер", "Лип", "Сер", "Вер", "Жов", "Лис", "Гру"],
-                longhand: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", 
-                           "Вересень", "Жовтень", "Листопад", "Грудень"]
+                longhand: ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень",
+                    "Вересень", "Жовтень", "Листопад", "Грудень"]
             },
             firstDayOfWeek: 1,
             ordinal: function () {
@@ -36,16 +37,16 @@ document.addEventListener("DOMContentLoaded", function() {
         };
         fp.l10ns.ua = Ukrainian;
         var ua = fp.l10ns;
-    
+
         exports.Ukrainian = Ukrainian;
         exports.default = ua;
-    
+
         Object.defineProperty(exports, '__esModule', { value: true });
-    
+
     })));
 
     //flatpickr init
-    flatpickr('input[name="date"]',  {
+    flatpickr('input[name="date"]', {
         locale: "ua",
         dateFormat: "d.m.Y",
         disableMobile: "true",
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
     dayjs.extend(customParseFormat);
 
     const today = dayjs().format('DD.MM.YYYY');
-    
+
     const todayFull = dayjs().format('D MMMM YYYY, dddd');
 
     //date calculator (Days)
@@ -88,11 +89,11 @@ document.addEventListener("DOMContentLoaded", function() {
             return resultElement.innerHTML = "Бажано вводити цілу кількість днів";
         }
 
-        addDays += startDayInElement.checked && addDays != 0  ? ((addDays > 0) ? -1 : 1) : 0;
+        addDays += startDayInElement.checked && addDays != 0 ? ((addDays > 0) ? -1 : 1) : 0;
         resultDate = dayjs(startDay).add(addDays, 'day').format('DD.MM.YYYY');
         let resultTitle = dayjs(resultDate, 'DD.MM.YYYY').format('D MMMM YYYY, dddd');
 
-        return  (resultElement.innerHTML = resultDate) + (resultElement.title = resultTitle);
+        return (resultElement.innerHTML = resultDate) + (resultElement.title = resultTitle);
     }
 
     //date calculator (Dates)
@@ -125,17 +126,17 @@ document.addEventListener("DOMContentLoaded", function() {
         let datesList = '';
 
         const significantDate = {
-            ny : [`${thisYear}-01-01`, ['Новий рік', 'Нового року']],
-            spring : [`${thisYear}-03-01`, ['Розпочалась весна', 'весни']],
-            summer : [`${thisYear}-06-01`, ['Розпочалось літо', 'літа']],
-            autumn : [`${thisYear}-09-01`, ['Розпочалась осінь', 'осені']],
-            winter : [`${thisYear}-12-01`, ['Розпочалась зима', 'зими']],
-            nd : [`${thisYear}-08-24`, ['День незалежності', 'Дня незалежності']],
-            kd : [`${thisYear}-06-28`, ['День конституції', 'Дня конституції']]
+            ny: [`${thisYear}-01-01`, ['Новий рік', 'Нового року']],
+            spring: [`${thisYear}-03-01`, ['Розпочалась весна', 'весни']],
+            summer: [`${thisYear}-06-01`, ['Розпочалось літо', 'літа']],
+            autumn: [`${thisYear}-09-01`, ['Розпочалась осінь', 'осені']],
+            winter: [`${thisYear}-12-01`, ['Розпочалась зима', 'зими']],
+            nd: [`${thisYear}-08-24`, ['День незалежності', 'Дня незалежності']],
+            kd: [`${thisYear}-06-28`, ['День конституції', 'Дня конституції']]
         }
 
         for (let day in significantDate) {
-            const imageDay = `<img src="../images/s-days/${day}.svg" alt="іконка ${significantDate[day][1][1]}">`;
+            const imageDay = `<img src="./images/s-days/${day}.svg" alt="іконка ${significantDate[day][1][1]}">`;
 
             if (dayjs(significantDate[day][0]).isSame(todayYMD)) {
                 const thisDate = imageDay + significantDate[day][1][0];
@@ -174,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function addTodayDate() {
         const todayTitleElement = todaySection.querySelector('.js-today');
 
-        if(!todayTitleElement) return;
+        if (!todayTitleElement) return;
 
         return todayTitleElement.insertAdjacentHTML('beforeend', ` ${todayFull}`);
     }
@@ -203,15 +204,15 @@ document.addEventListener("DOMContentLoaded", function() {
     todayDate();
 
     //rerun functions
-    addDaysSection.addEventListener('change', function (){
+    addDaysSection.addEventListener('change', function () {
         addDays();
     });
 
-    addDaysElement.addEventListener('keyup', function (){
+    addDaysElement.addEventListener('keyup', function () {
         addDays();
     });
 
-    diffDatesSection.addEventListener('change', function (){
+    diffDatesSection.addEventListener('change', function () {
         diffDates();
     });
 
@@ -221,10 +222,10 @@ document.addEventListener("DOMContentLoaded", function() {
         if (navigator.clipboard) {
             const resultBlock = addDaysSection.querySelector('.result-block');
             const resultElement = resultBlock.querySelector('.result');
-            navigator.clipboard.writeText(resultElement.textContent).then(function() {
+            navigator.clipboard.writeText(resultElement.textContent).then(function () {
                 resultBlock.insertAdjacentHTML('beforeend', '<span class="message message--success">Текст скопійовано в буфер обміну</span>');
                 window.setTimeout(() => resultBlock.querySelector('.message').remove(), 2000);
-            }, function(e) {
+            }, function (e) {
                 resultBlock.insertAdjacentHTML('beforeend', `<span class="message message--error">Помилка при копіюванні: ${e}</span>`);
                 window.setTimeout(() => resultBlock.querySelector('.message').remove(), 2000);
             });
@@ -235,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     //set date
-    document.querySelector('.js-set-date').addEventListener('click', function (){
+    document.querySelector('.js-set-date').addEventListener('click', function () {
         const nowId = new Date().getTime();
         const dateBox = addDaysSection.querySelector('.date-box');
         const resultElement = dateBox.querySelector('.result-block .result');
