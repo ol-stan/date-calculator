@@ -125,18 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function toDate() {
         let datesList = '';
 
-        const significantDate = {
-            christmass: [`${thisYear}-12-25`, ['Різдво', 'Різдва']],
-            ny: [`${thisYear}-01-01`, ['Новий рік', 'Нового року']],
-            spring: [`${thisYear}-03-01`, ['Розпочалась весна', 'весни']],
-            summer: [`${thisYear}-06-01`, ['Розпочалось літо', 'літа']],
-            autumn: [`${thisYear}-09-01`, ['Розпочалась осінь', 'осені']],
-            winter: [`${thisYear}-12-01`, ['Розпочалась зима', 'зими']],
-            nd: [`${thisYear}-08-24`, ['День Незалежності', 'Дня Незалежності']],
-            kd: [`${thisYear}-06-28`, ['День Конституції', 'Дня Конституції']]
-        }
-
-        let significantDateArr = [
+        let significantDate = [
             { name: 'christmass', date: `${thisYear}-12-25`, label: ['Різдво', 'Різдва'] },
             { name: 'ny', date: `${thisYear}-01-01`, label: ['Новий рік', 'Нового року'] },
             { name: 'spring', date: `${thisYear}-03-01`, label: ['Розпочалась весна', 'весни'] },
@@ -147,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
             { name: 'kd', date: `${thisYear}-06-28`, label: ['День Конституції', 'Дня Конституції'] },
         ];
 
-        significantDateArr.forEach(function (obj) {
+        significantDate.forEach(function (obj) {
             if (dayjs(obj.date).isSame(todayYMD)) {
                 obj.dayLeft = 0
             } else if (dayjs(obj.date).isBefore(todayYMD)) {
@@ -156,14 +145,13 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 obj.dayLeft = dayjs(obj.date).diff(todayYMD, 'day')
             }
-        })
+        });
 
-
-        const significantDateArrSorted = significantDateArr.sort(function (a, b) {
+        significantDate.sort(function (a, b) {
             return a.dayLeft - b.dayLeft
         });
 
-        significantDateArrSorted.forEach(function (item) {
+        significantDate.forEach(function (item) {
             const imageDay = `<img src="./images/s-days/${item.name}.svg" alt="іконка ${item.label[1]}">`;
 
             if (item.dayLeft === 0) {
