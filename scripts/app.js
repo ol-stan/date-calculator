@@ -126,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let datesList = '';
 
         const significantDate = {
+            christmass: [`${thisYear}-12-25`, ['Різдво', 'Різдва']],
             ny: [`${thisYear}-01-01`, ['Новий рік', 'Нового року']],
             spring: [`${thisYear}-03-01`, ['Розпочалась весна', 'весни']],
             summer: [`${thisYear}-06-01`, ['Розпочалось літо', 'літа']],
@@ -135,21 +136,44 @@ document.addEventListener("DOMContentLoaded", function () {
             kd: [`${thisYear}-06-28`, ['День Конституції', 'Дня Конституції']]
         }
 
-        for (let day in significantDate) {
-            const imageDay = `<img src="./images/s-days/${day}.svg" alt="іконка ${significantDate[day][1][1]}">`;
+        let significantDateArr = [
+            { name: 'christmass', date: `${thisYear}-12-25`, label: ['Різдво', 'Різдва'] },
+            { name: 'ny', date: `${thisYear}-01-01`, label: ['Новий рік', 'Нового року'] },
+            { name: 'spring', date: `${thisYear}-03-01`, label: ['Розпочалась весна', 'весни'] },
+            { name: 'summer', date: `${thisYear}-06-01`, label: ['Розпочалось літо', 'літа'] },
+            { name: 'autumn', date: `${thisYear}-09-01`, label: ['Розпочалась осінь', 'осені'] },
+            { name: 'winter', date: `${thisYear}-12-01`, label: ['Розпочалась зима', 'зими'] },
+            { name: 'nd', date: `${thisYear}-08-24`, label: ['День Незалежності', 'Дня Незалежності'] },
+            { name: 'kd', date: `${thisYear}-06-28`, label: ['День Конституції', 'Дня Конституції'] },
+        ];
 
-            if (dayjs(significantDate[day][0]).isSame(todayYMD)) {
-                const thisDate = imageDay + significantDate[day][1][0];
+        significantDateArr.forEach(function (obj) {
+            if (dayjs(obj.date).isSame(todayYMD)) {
+                obj.dayLeft = 0
+            } else if (dayjs(obj.date).isBefore(todayYMD)) {
+                const nextDate = dayjs(obj.date).add(1, 'year').format('YYYY-MM-DD');
+                obj.dayLeft = dayjs(nextDate).diff(todayYMD, 'day')
+            } else {
+                obj.dayLeft = dayjs(obj.date).diff(todayYMD, 'day')
+            }
+        })
+
+
+        const significantDateArrSorted = significantDateArr.sort(function (a, b) {
+            return a.dayLeft - b.dayLeft
+        });
+
+        significantDateArrSorted.forEach(function (item) {
+            const imageDay = `<img src="./images/s-days/${item.name}.svg" alt="іконка ${item.label[1]}">`;
+
+            if (item.dayLeft === 0) {
+                const thisDate = imageDay + item.label[0];
                 datesList += `<li>${thisDate} - сьогодні </li>`;
                 todayDate(thisDate);
-            } else if (dayjs(significantDate[day][0]).isBefore(todayYMD)) {
-                const nextDate = dayjs(significantDate[day][0]).add(1, 'year').format('YYYY-MM-DD');
-                datesList += `<li>${imageDay} ${significantDate[day][1][1]} - ${dayjs(nextDate).diff(todayYMD, 'day')} </li>`;
             } else {
-                datesList += `<li>${imageDay} ${significantDate[day][1][1]} - ${dayjs(significantDate[day][0]).diff(todayYMD, 'day')} </li>`;
+                datesList += `<li>${imageDay} ${item.label[1]} - ${item.dayLeft} </li>`;
             }
-
-        }
+        });
 
         return datesListElement.innerHTML = datesList;
     }
@@ -184,8 +208,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const startMassWarDay = '2022-02-24';
         const startWarDay = '2014-02-22';
 
-        const massWarStr = '<p>' + (dayjs(todayYMD).diff(startMassWarDay, 'day') + 1) + '-й день повномаштабної війни Російської Федерації проти Українського Народу</p>';
-        const warStr = '<p>' + (dayjs(todayYMD).diff(startWarDay, 'day') + 1) + '-й день Російсько-Української війни</p>';
+        const massWarStr = '<p>' + (dayjs(todayYMD).diff(startMassWarDay, 'day') + 1) + '-й день повномаштабної війни російської Федерації проти Українського Народу</p>';
+        const warStr = '<p>' + (dayjs(todayYMD).diff(startWarDay, 'day') + 1) + '-й день російсько-Української війни</p>';
 
         return todayInfoElement.insertAdjacentHTML('beforeend', `${massWarStr} ${warStr}`);
     }
